@@ -25,6 +25,9 @@ style = ('Times New Roman', sizeMultiplier // 2, 'normal')
 
 
 def gotoCoords(x, y):
+
+    #print(x,y)
+    #x = input("Continue>") # STUB
     t.penup()
     t.goto(columns * sizeMultiplier / -2 + sizeMultiplier * x,
            rows * sizeMultiplier / -2 + sizeMultiplier * y)
@@ -42,6 +45,8 @@ def makeBorders():
         t.fd(sizeMultiplier*rows)
         t.left(90)
     t.pensize(1)
+    #print(columns, sizeMultiplier)
+    #input("Continue>") STUB
 
 
 def drawGrid(grid, colour):
@@ -83,9 +88,12 @@ def drawGrid(grid, colour):
             gotoCoords(columnNo + 0.5, rows - rowNo - 1)
             t.write(grid[rowNo][columnNo], font=style, align="center")
 
+    #print(grid, colour)
+    #input("Continue>") #Stub
+
 
 if __name__ == "__main__":
-
+    path = os.getcwd()
     base = int(base)
     times = int(str(times))
     mode = str(mode)
@@ -97,15 +105,15 @@ if __name__ == "__main__":
     for j in range(times):
 
         now = datetime.now()
-        dt_string = now.strftime("(%d.%m) [%H:%M:%S]")
+        dt_string = now.strftime("(%d.%m) [%H,%M,%S]")
 
-        if (os.path.exists(f"/Users/tharun/Desktop/SDD MAJOR WORK2/Sudokus")) == True:
+        if (os.path.exists(path + "\Sudokus")) == True:
             pass
         else:
             directory = "Sudokus"
-            parent_dir = "/Users/tharun/Desktop/SDD MAJOR WORK2"
-            path = os.path.join(parent_dir, directory)
-            os.makedirs(path)
+            parent_dir = path
+            path_ = os.path.join(parent_dir, directory)
+            os.makedirs(path_)
 
         side = base ** 2
         lst = list()
@@ -118,9 +126,13 @@ if __name__ == "__main__":
             limit = (side ** 2)/4 * 3
 
         def pattern(r, c):
+            #print(r,c)
+            #input("Continue>") # Stub
             return (base * (r % base) + r // base + c) % side                                                           # 1
 
         def shuffle(s):
+            #print(s) # Stub
+            #input("Continue>")
             return sample(s, len(s))                                                                                    # 2
 
         # cite this
@@ -145,16 +157,16 @@ if __name__ == "__main__":
         gotoCoords(base, -1)
         t.write("Solution", font=style, align="center")
 
-        if (os.path.exists("/Users/tharun/Desktop/SDD MAJOR WORK2/Sudokus/Answers")) == True:
+        if (os.path.exists(path + "\Sudokus\Answers")) == True:
             pass
         else:
             directory = "Answers"
-            parent_dir = "/Users/tharun/Desktop/SDD MAJOR WORK2/Sudokus"
-            path = os.path.join(parent_dir, directory)
-            os.makedirs(path)
+            parent_dir = path + "\Sudokus"
+            path_ = os.path.join(parent_dir, directory)
+            os.makedirs(path_)
 
-        ts.getcanvas().postscript(file="/Users/tharun/Desktop/SDD MAJOR WORK2/Sudokus/Answers/"
-                                       + "[" + str(difficulty.upper()) + "]" + "-" + "{" + str(base ** 2) + "x"
+        ts.getcanvas().postscript(file= path + "\Sudokus\Answers"
+                                       + "\[" + str(difficulty.upper()) + "]" + "-" + "{" + str(base ** 2) + "x"
                                        + str(base**2) + "}" + "_" + dt_string + ".ps")
 
         turtle.clearscreen()
@@ -185,17 +197,18 @@ if __name__ == "__main__":
         t.write("Solveable", font=style, align="center")
         ts = turtle.Screen()
 
-        if (os.path.exists("/Users/tharun/Desktop/SDD MAJOR WORK2/Sudokus/BlankSudoku/")) == True:
+        if (os.path.exists(path + "\Sudokus\BlankSudoku")) == True:
             pass
         else:
             directory = "BlankSudoku"
-            parent_dir = f"/Users/tharun/Desktop/SDD MAJOR WORK2/Sudokus"
-            path = os.path.join(parent_dir, directory)
-            os.makedirs(path)
+            parent_dir = path + "\Sudokus"
+            path_ = os.path.join(parent_dir, directory)
+            os.makedirs(path_)
 
-        ts.getcanvas().postscript(file=f"/Users/tharun/Desktop/SDD MAJOR WORK2/Sudokus/BlankSudoku/" +
-                                       "[" + str(difficulty.upper()) + "]" + "-" + "{" + str(base ** 2) +
+        ts.getcanvas().postscript(file=path + "\Sudokus\BlankSudoku" +
+                                       "\[" + str(difficulty.upper()) + "]" + "-" + "{" + str(base ** 2) +
                                        "x" + str(base ** 2) + "}" + "_" + dt_string + ".ps")
+
 
         if mode == "inst save":
             sg.theme("Reddit")
@@ -224,25 +237,21 @@ if __name__ == "__main__":
 
             if saveVar == "n":
                 print("Sudoku discarded")
-                if os.path.exists("/Users/tharun/Desktop/SDD MAJOR WORK2/Sudokus/Answers/"
-                                  + "[" + str(difficulty.upper()) + "]" + "-" + "{" + str(base ** 2)
-                                  + "x" + str(base ** 2) + "}" + "_" + dt_string + ".ps"):
 
-                    os.remove("/Users/tharun/Desktop/SDD MAJOR WORK2/Sudokus/Answers/"
-                              + "[" + str(difficulty.upper()) + "]" + "-" + "{" + str(base ** 2)
-                              + "x" + str(base ** 2) + "}" + "_" + dt_string + ".ps")
+                os.remove(path + "\Sudokus\Answers"
+                          + "\[" + str(difficulty.upper()) + "]" + "-" + "{" + str(base ** 2)
+                          + "x" + str(base ** 2) + "}" + "_" + dt_string + ".ps")
 
-                if os.path.exists("/Users/tharun/Desktop/SDD MAJOR WORK2/Sudokus/BlankSudoku/"
-                                  + "[" + str(difficulty.upper()) + "]" + "-" + "{" + str(base ** 2)
-                                  + "x" + str(base ** 2) + "}" + "_" + dt_string + ".ps"):
-                    os.remove("/Users/tharun/Desktop/SDD MAJOR WORK2/Sudokus/BlankSudoku/"
-                              + "[" + str(difficulty.upper()) + "]" + "-" + "{" + str(base ** 2)
-                              + "x" + str(base ** 2) + "}" + "_" + dt_string + ".ps")
+
+                os.remove(path + "\Sudokus\BlankSudoku"
+                          + "\[" + str(difficulty.upper()) + "]" + "-" + "{" + str(base ** 2)
+                          + "x" + str(base ** 2) + "}" + "_" + dt_string + ".ps")
+
 
             if saveVar.lower() == "y":
                 print("Sudoku saved")
 
-        img_folder_path = '/Users/tharun/Desktop/SDD MAJOR WORK2/Sudokus/Answers'
+        img_folder_path = path + '\Sudokus\Answers'
         dirListing = os.listdir(img_folder_path)
 
         turtle.clearscreen()
